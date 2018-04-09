@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center|left"
+    android:orientation="horizontal">
+
+    <cn.carbs.android.avatarimageview.library.AvatarImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/dialog_avatar_width"
+        android:layout_height="@dimen/dialog_avatar_height"
+        android:layout_margin="16dp"
+        app:aiv_ShowBoarder="false"
+        app:aiv_TextSizeRatio="0.4" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</android.support.v7.widget.LinearLayoutCompat>
