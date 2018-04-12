@@ -1,10 +1,12 @@
 package com.starj.mqttchat.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.starj.mqttchat.R
 import com.starj.mqttchat.common.BaseActivity
 import com.starj.mqttchat.datas.ChatRoom
+import com.starj.mqttchat.ui.chat.ChatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainMvpView {
@@ -27,7 +29,11 @@ class MainActivity : BaseActivity(), MainMvpView {
     override fun onLoadChatRooms(chatRooms: List<ChatRoom>) = chatRoomAdapter.addItems(chatRooms)
 
     private fun initLayout() {
-        chatRoomAdapter = ChatRoomAdapter { }
+        chatRoomAdapter = ChatRoomAdapter {
+            val intent = Intent(this, ChatActivity::class.java)
+            intent.putExtra("title", it.name)
+            startActivity(intent)
+        }
 
         rvChatRooms.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvChatRooms.adapter = chatRoomAdapter
