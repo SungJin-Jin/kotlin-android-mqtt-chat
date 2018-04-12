@@ -8,10 +8,13 @@ import com.starj.mqttchat.R
 fun defaultOptions(
         placeHolder: Int = R.mipmap.ic_launcher,
         error: Int = R.mipmap.ic_launcher
-) = RequestOptions().placeholder(placeHolder).error(error)
+): RequestOptions = requestOptions(RequestOptions(), placeHolder, error)
 
 fun centerCropOptions(
         placeHolder: Int = R.mipmap.ic_launcher,
         error: Int = R.mipmap.ic_launcher
-) = circleCropTransform().placeholder(placeHolder).error(error)
+): RequestOptions = requestOptions(circleCropTransform(), placeHolder, error)
+
+private fun requestOptions(options: RequestOptions, placeHolder: Int, error: Int) =
+        options.placeholder(placeHolder).error(error)
 
