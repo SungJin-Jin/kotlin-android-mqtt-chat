@@ -1,9 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.starj.mqttchat.ui.chat.ChatActivity">
+    android:background="@color/white">
 
-</android.support.constraint.ConstraintLayout>
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/rvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/inputMessage"
+        app:outcomingDefaultBubbleColor="@color/colorPrimary"
+        app:outcomingDefaultBubbleSelectedColor="@color/colorPrimaryDark" />
+
+    <include layout="@layout/view_divider" />
+
+    <com.stfalcon.chatkit.messages.MessageInput
+        android:id="@+id/inputMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        app:attachmentButtonDefaultBgColor="@color/colorPrimary"
+        app:attachmentButtonDefaultBgPressedColor="@color/colorPrimaryDark"
+        app:attachmentButtonDefaultIconColor="@color/white"
+        app:attachmentButtonDefaultIconPressedColor="@color/white"
+        app:inputButtonDefaultBgColor="@color/colorPrimary"
+        app:inputButtonDefaultBgPressedColor="@color/colorPrimaryDark"
+        app:showAttachmentButton="true" />
+
+</RelativeLayout>

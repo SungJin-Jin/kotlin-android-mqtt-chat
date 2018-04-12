@@ -1,0 +1,5 @@
+<View android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_above="@+id/input"
+    android:background="@color/warm_grey"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
