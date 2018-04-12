@@ -9,9 +9,16 @@ class MainPresenter<MvpView : BaseMvpView> : BaseMvpPresenter<MvpView> {
 
     companion object {
         val defaultChatRooms = listOf(
-                ChatRoom("1", "Nethru DEV 1"),
-                ChatRoom("2", "Nethru DEV 2"),
-                ChatRoom("3", "TEDda")
+                ChatRoom(name = "Nethru"),
+                ChatRoom(name = "DEV"),
+                ChatRoom(name = "DEV/1"),
+                ChatRoom(name = "DEV/2"),
+                ChatRoom(name = "TDDda"),
+                ChatRoom(name = "TDDDa"),
+                ChatRoom(name = "Golf"),
+                ChatRoom(name = "Movie"),
+                ChatRoom(name = "Digital Analysis"),
+                ChatRoom(name = "Management")
         )
     }
 
@@ -23,9 +30,6 @@ class MainPresenter<MvpView : BaseMvpView> : BaseMvpPresenter<MvpView> {
 
     override fun destroy() {}
 
-    fun loadChatRooms() {
-        // TODO : SharedPreferences 로 채팅방 리스트 관리 로직 추가
-        view.onLoadChatRooms(defaultChatRooms)
-    }
+    fun loadChatRooms(): Unit = view.onLoadChatRooms(defaultChatRooms)
 
 }

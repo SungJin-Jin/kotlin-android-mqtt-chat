@@ -2,6 +2,6 @@ package com.starj.mqttchat.datas
 
 
 data class ChatRoom(
-        val id: String,
+        val id: String = "",
         var name: String = ""
 )

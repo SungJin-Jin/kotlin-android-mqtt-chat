@@ -8,6 +8,7 @@ import com.starj.mqttchat.R
 import com.starj.mqttchat.datas.ChatRoom
 import kotlinx.android.synthetic.main.viewholder_chat_room.view.*
 import java.util.*
+import kotlin.math.abs
 
 internal class ChatRoomAdapter(val action: (chatRoom: ChatRoom) -> Unit) : RecyclerView.Adapter<ChatRoomAdapter.ViewHolder>() {
 
@@ -57,7 +58,7 @@ internal class ChatRoomAdapter(val action: (chatRoom: ChatRoom) -> Unit) : Recyc
 
                 photo.setTextAndColor(
                         chatRoom.name.first().toUpperCase().toString(),
-                        AvatarImageView.COLORS[chatRoom.id.hashCode() % AvatarImageView.COLORS.size]
+                        AvatarImageView.COLORS[abs(chatRoom.hashCode()) % AvatarImageView.COLORS.size]
                 )
 
                 setOnClickListener { action.invoke(chatRoom) }

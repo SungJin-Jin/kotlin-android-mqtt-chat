@@ -1,32 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.stfalcon.chatkit.messages.MessagesList
-        android:id="@+id/rvMessage"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/inputMessage"
-        app:outcomingDefaultBubbleColor="@color/colorPrimary"
-        app:outcomingDefaultBubbleSelectedColor="@color/colorPrimaryDark" />
+        android:layout_height="match_parent">
 
-    <include layout="@layout/view_divider" />
+        <com.stfalcon.chatkit.messages.MessagesList
+            android:id="@+id/rvMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/inputMessage"
+            app:outcomingDefaultBubbleColor="@color/colorPrimary"
+            app:outcomingDefaultBubbleSelectedColor="@color/colorPrimaryDark" />
 
-    <com.stfalcon.chatkit.messages.MessageInput
-        android:id="@+id/inputMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:attachmentButtonDefaultBgColor="@color/colorPrimary"
-        app:attachmentButtonDefaultBgPressedColor="@color/colorPrimaryDark"
-        app:attachmentButtonDefaultIconColor="@color/white"
-        app:attachmentButtonDefaultIconPressedColor="@color/white"
-        app:inputButtonDefaultBgColor="@color/colorPrimary"
-        app:inputButtonDefaultBgPressedColor="@color/colorPrimaryDark"
-        app:showAttachmentButton="true" />
+        <include layout="@layout/view_divider" />
 
-</RelativeLayout>
+        <com.stfalcon.chatkit.messages.MessageInput
+            android:id="@+id/inputMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            app:attachmentButtonDefaultBgColor="@color/colorPrimary"
+            app:attachmentButtonDefaultBgPressedColor="@color/colorPrimaryDark"
+            app:attachmentButtonDefaultIconColor="@color/white"
+            app:attachmentButtonDefaultIconPressedColor="@color/white"
+            app:inputButtonDefaultBgColor="@color/colorPrimary"
+            app:inputButtonDefaultBgPressedColor="@color/colorPrimaryDark"
+            app:showAttachmentButton="true" />
+    </RelativeLayout>
+</android.support.v7.widget.LinearLayoutCompat>

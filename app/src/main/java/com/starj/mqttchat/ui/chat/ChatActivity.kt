@@ -5,6 +5,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.starj.mqttchat.R
 import com.starj.mqttchat.common.BaseActivity
+import com.starj.mqttchat.common.option.centerCropOptions
 import com.starj.mqttchat.datas.Author
 import com.starj.mqttchat.datas.Message
 import com.starj.mqttchat.extensions.getAndroidId
@@ -23,6 +24,7 @@ class ChatActivity : BaseActivity(), ChatMvpView {
         title = intent.extras.getString("title")
 
         initAdapter()
+        connect()
 
         inputMessage.setInputListener(this)
     }
@@ -30,18 +32,24 @@ class ChatActivity : BaseActivity(), ChatMvpView {
     override fun initPresenter() {
         presenter = ChatPresenter()
         presenter.attachView(this)
-        presenter.setAuthor(Author(id = getAndroidId()))
+    }
+
+    override fun onDestroy() {
+        presenter.destroy()
+        super.onDestroy()
     }
 
     private fun initAdapter() {
         messageAdapter = MessagesListAdapter(
                 getAndroidId(),
-                ImageLoader { imageView, url -> Glide.with(this).load(url).into(imageView) }
+                getImageLoader()
         )
         messageAdapter.registerViewClickListener(R.id.messageUserAvatar, this)
 
         rvMessage.setAdapter(messageAdapter)
     }
+
+    private fun connect() = presenter.connect(Author(getAndroidId()), title.toString())
 
     override fun onSubmit(input: CharSequence?): Boolean {
         presenter.sendMessage(input)
@@ -52,4 +60,12 @@ class ChatActivity : BaseActivity(), ChatMvpView {
     override fun onReceiveMessage(message: Message) = messageAdapter.addToStart(message, true)
 
     override fun onMessageViewClick(view: View?, message: Message?) {}
+
+    private fun getImageLoader() =
+            ImageLoader { imageView, url ->
+                Glide.with(this)
+                        .load(url)
+                        .apply(centerCropOptions(R.drawable.ic_profile, R.drawable.ic_profile))
+                        .into(imageView)
+            }
 }
