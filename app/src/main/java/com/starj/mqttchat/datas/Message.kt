@@ -6,13 +6,13 @@ import java.util.*
 
 data class Message(
         private var id: String = "",
-        private var createdAt: Date = DateTime.now().toDate(),
+        private var createdAt: Long = DateTime.now().millis,
         private var author: Author,
         private var text: String = ""
 ) : IMessage {
     override fun getId() = id
 
-    override fun getCreatedAt() = createdAt
+    override fun getCreatedAt() = Date(createdAt)
 
     override fun getUser() = author
 
