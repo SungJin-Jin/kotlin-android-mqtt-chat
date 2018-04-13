@@ -4,7 +4,7 @@ Example Chat App powered by MQTT
 
 ## Preview
 
-![mqttchat](/imgage/mqttchat.PNG)
+![mqttchat](/image/mqttchat.png)
 
 
 
