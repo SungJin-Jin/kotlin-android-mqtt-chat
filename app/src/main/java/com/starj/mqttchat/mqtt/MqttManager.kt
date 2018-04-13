@@ -26,7 +26,7 @@ class MqttManager(
         client.connect(
                 MqttConnectOptions().apply {
                     keepAliveInterval = INTERVAL_KEEP_ALIVE
-                    isCleanSession = false
+                    isCleanSession = true
                     isAutomaticReconnect = true
                 }
         )
