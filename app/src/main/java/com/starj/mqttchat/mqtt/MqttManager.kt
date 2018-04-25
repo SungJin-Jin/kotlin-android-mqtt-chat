@@ -1,59 +1,53 @@
 package com.starj.mqttchat.mqtt
 
-import com.starj.mqttchat.common.EndPoint.ENDPOINT_MQTT_BROKER
+import com.starj.mqttchat.common.EndPoint
 import com.starj.mqttchat.datas.Author
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions
 import org.eclipse.paho.client.mqttv3.MqttMessage
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 
-
 class MqttManager(
-        var author: Author,
-        private var topic: String,
-        private var subscribeAction: (String, MqttMessage) -> Unit
+        val author: Author,
+        val topic: String,
+        val actionOnSubscribed: (String, MqttMessage) -> Unit
 ) {
-
     companion object {
         private const val QOS_LEVEL = 2
-        private const val INTERVAL_KEEP_ALIVE = 1000 * 60 * 60 * 24
     }
 
-    private lateinit var client: MqttClient
+    private lateinit var mqttClient: MqttClient
 
-    tailrec fun connect(): Boolean {
-        client = MqttClient(ENDPOINT_MQTT_BROKER, author.id, MemoryPersistence())
-        client.connect(
-                MqttConnectOptions().apply {
-                    keepAliveInterval = INTERVAL_KEEP_ALIVE
-                    isCleanSession = true
-                    isAutomaticReconnect = true
+    tailrec fun connect() {
+        mqttClient = MqttClient(EndPoint.ENDPOINT_MQTT_BROKER, author.id, MemoryPersistence())
+        mqttClient.connect(
+                MqttConnectOptions().also {
+                    it.isCleanSession = true
+                    it.isAutomaticReconnect = true
+                    it.userName = "lzgnfwsn"
+                    it.password = "t5I3zShOEwyP".toCharArray()
                 }
         )
 
-        return when (client.isConnected) {
-            true -> {
-                subscribeOnTopic()
-                true
-            }
-            false -> connect()
+        return if(mqttClient.isConnected) {
+            subcribeOnTopic()
+        } else {
+            connect()
         }
+    }
+
+    private fun subcribeOnTopic() {
+        mqttClient.subscribe(
+                topic, QOS_LEVEL, actionOnSubscribed
+        )
     }
 
     fun disconnect() {
-        if (client.isConnected) client.disconnect()
+        if(mqttClient.isConnected) mqttClient.disconnect()
     }
 
-    private fun subscribeOnTopic() {
-        client.subscribe(topic, QOS_LEVEL, subscribeAction::invoke)
+    fun publish(message: String) {
+        mqttClient.publish(topic, message.toByteArray(), QOS_LEVEL, false)
     }
 
-    tailrec fun publish(input: String) {
-        when (client.isConnected) {
-            true -> {
-                client.publish(topic, input.toByteArray(), QOS_LEVEL, false)
-            }
-            false -> if (connect()) publish(input)
-        }
-    }
 }
