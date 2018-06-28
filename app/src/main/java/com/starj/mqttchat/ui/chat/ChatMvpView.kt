@@ -12,4 +12,8 @@ interface ChatMvpView :
 
     fun onReceiveMessage(message: Message)
 
+    fun onSuccessConnect()
+
+    fun onErrorConnect()
+
 }

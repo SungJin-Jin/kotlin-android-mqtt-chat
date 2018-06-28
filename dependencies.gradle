@@ -63,6 +63,10 @@ ext {
     avatarImageViewVersion = '1.0.4'
     avatarImageView = dependency(avatarImageViewPackage, 'AvatarImageView', avatarImageViewVersion)
 
+    loadingViewPackage = 'com.github.zzz40500'
+    loadingViewVersion = '1.0.3.2'
+    loadingView = dependency(loadingViewPackage, 'android-shapeLoadingView', loadingViewVersion)
+
     junitPackage = 'junit'
     junitVersion = '4.12'
 

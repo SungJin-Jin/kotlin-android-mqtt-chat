@@ -24,11 +24,13 @@ class MqttManager(
         MqttClient(EndPoint.ENDPOINT_MQTT_BROKER, author.id, MemoryPersistence())
     }
 
-    tailrec fun connect() {
+    tailrec fun connect(): Boolean {
         mqttClient.connect(createConnectionOptions())
 
         return if (mqttClient.isConnected) {
             subscribeOnTopic()
+
+            true
         } else {
             connect()
         }

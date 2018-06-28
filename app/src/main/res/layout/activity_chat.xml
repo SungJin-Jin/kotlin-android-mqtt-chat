@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <com.stfalcon.chatkit.messages.MessagesList
             android:id="@+id/rvMessage"
             android:layout_width="match_parent"
@@ -31,5 +32,11 @@
             app:inputButtonDefaultBgColor="@color/colorPrimary"
             app:inputButtonDefaultBgPressedColor="@color/colorPrimaryDark"
             app:showAttachmentButton="true" />
+
+        <com.mingle.widget.LoadingView
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:loadingText="Connecting..." />
     </RelativeLayout>
 </android.support.v7.widget.LinearLayoutCompat>

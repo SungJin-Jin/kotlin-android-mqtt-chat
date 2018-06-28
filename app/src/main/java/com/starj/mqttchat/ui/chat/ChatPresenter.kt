@@ -24,8 +24,20 @@ class ChatPresenter<MvpView : BaseMvpView> : BaseMvpPresenter<MvpView> {
     }
 
     fun connect(author: Author, topic: String) {
-        mqttManager = MqttManager(author, topic, actionOnSubscribed())
-        mqttManager.connect()
+        Single.create<Boolean>({
+            mqttManager = MqttManager(author, topic, actionOnSubscribed())
+
+            it.onSuccess(mqttManager.connect())
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            when (it) {
+                                true -> view.onSuccessConnect()
+                                false -> view.onErrorConnect()
+                            }
+                        },
+                        { view.onErrorConnect() }
+                )
     }
 
     override fun destroy() = mqttManager.disconnect()

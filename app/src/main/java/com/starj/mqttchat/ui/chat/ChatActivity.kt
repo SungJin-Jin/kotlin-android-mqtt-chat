@@ -2,6 +2,7 @@ package com.starj.mqttchat.ui.chat
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.starj.mqttchat.R
 import com.starj.mqttchat.common.BaseActivity
@@ -9,6 +10,7 @@ import com.starj.mqttchat.common.option.centerCropOptions
 import com.starj.mqttchat.datas.Author
 import com.starj.mqttchat.datas.Message
 import com.starj.mqttchat.extensions.getAndroidId
+import com.starj.mqttchat.extensions.showToast
 import com.stfalcon.chatkit.commons.ImageLoader
 import com.stfalcon.chatkit.messages.MessagesListAdapter
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -39,17 +41,14 @@ class ChatActivity : BaseActivity(), ChatMvpView {
         super.onDestroy()
     }
 
-    private fun initAdapter() {
-        messageAdapter = MessagesListAdapter(
-                getAndroidId(),
-                getImageLoader()
-        )
-        messageAdapter.registerViewClickListener(R.id.messageUserAvatar, this)
-
-        rvMessage.setAdapter(messageAdapter)
+    override fun onSuccessConnect() {
+        loading.visibility = View.GONE
     }
 
-    private fun connect() = presenter.connect(Author(getAndroidId()), title.toString())
+    override fun onErrorConnect() {
+        showToast("Error to connect")
+        finish()
+    }
 
     override fun onSubmit(input: CharSequence?): Boolean {
         presenter.sendMessage(input)
@@ -61,7 +60,19 @@ class ChatActivity : BaseActivity(), ChatMvpView {
 
     override fun onMessageViewClick(view: View?, message: Message?) {}
 
-    private fun getImageLoader() =
+    private fun initAdapter() {
+        messageAdapter = MessagesListAdapter(getAndroidId(), createImageLoader())
+        messageAdapter.registerViewClickListener(R.id.messageUserAvatar, this)
+
+        rvMessage.setAdapter(messageAdapter)
+    }
+
+    private fun connect() {
+        loading.visibility = View.VISIBLE
+        presenter.connect(Author(getAndroidId()), title.toString())
+    }
+
+    private fun createImageLoader() =
             ImageLoader { imageView, url ->
                 Glide.with(this)
                         .load(url)

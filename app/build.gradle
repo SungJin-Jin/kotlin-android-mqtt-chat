@@ -41,4 +41,5 @@ dependencies {
     implementation jodaTime
     implementation chatkit
     implementation avatarImageView
+    implementation loadingView
 }
