@@ -1,0 +1,99 @@
+ext {
+    supportPackage = 'com.android.support'
+    suppoertVersion = '27.1.0'
+    constrainsPackage = 'com.android.support.constraint'
+    constraionsVersion = '1.0.2'
+
+    supportDependencies = [
+            appCompat       : dependency(supportPackage, 'appcompat-v7', suppoertVersion),
+            design          : dependency(supportPackage, 'design', suppoertVersion),
+            cardView        : dependency(supportPackage, 'cardview-v7', suppoertVersion),
+            recyclerView    : dependency(supportPackage, 'recyclerview-v7', suppoertVersion),
+            constraintLayout: dependency(constrainsPackage, 'constraint-layout', constraionsVersion)
+    ]
+
+    kotlinPackage = 'org.jetbrains.kotlin'
+
+    kotlinDependencies = [
+            kotlinStdlib : dependency(kotlinPackage, "kotlin-stdlib", kotlinVersion),
+            kotlinReflect: dependency(kotlinPackage, "kotlin-reflect", kotlinVersion)
+    ]
+
+    reactivePackage = 'io.reactivex.rxjava2'
+    rxJavaVersion = '2.1.5'
+    rxAndroidVersion = '2.0.1'
+
+    reactiveNetworkPackage = 'com.github.pwittchen'
+    reactiveNetworkVersion = '0.12.3'
+
+    rxDependencies = [
+            rxJava   : dependency(reactivePackage, 'rxjava', rxJavaVersion),
+            rxAndroid: dependency(reactivePackage, 'rxandroid', rxAndroidVersion),
+            rxNetwork: dependency(reactiveNetworkPackage, 'reactivenetwork-rx2', reactiveNetworkVersion)
+    ]
+
+    glidePackage = 'com.github.bumptech.glide'
+    glideVersion = '4.6.1'
+
+    glideTransformationsPackage = 'jp.wasabeef'
+    glideTransformationsVersion = '3.1.1'
+
+    glideDependencies = [
+            glide               : dependency(glidePackage, 'glide', glideVersion),
+            glideTransformations: dependency(glideTransformationsPackage, 'glide-transformations', glideTransformationsVersion)
+    ]
+
+    pahoMqttPackage = 'org.eclipse.paho'
+    pahoMqttVersion = '1.1.0'
+    pahoMqtt = dependency(pahoMqttPackage, 'org.eclipse.paho.client.mqttv3', pahoMqttVersion)
+
+    gsonPackage = 'com.google.code.gson'
+    gsonVersion = '2.8.2'
+    gson = dependency(gsonPackage, 'gson', gsonVersion)
+
+    jodaTimePackage = 'joda-time'
+    jodaTimeVersion = '2.9.9'
+    jodaTime = dependency(jodaTimePackage, 'joda-time', jodaTimeVersion)
+
+    chatkitPackage = 'com.github.stfalcon'
+    chatkitVersion = '0.2.2'
+    chatkit = dependency(chatkitPackage, 'chatkit', chatkitVersion)
+
+    avatarImageViewPackage = 'cn.carbs.android'
+    avatarImageViewVersion = '1.0.4'
+    avatarImageView = dependency(avatarImageViewPackage, 'AvatarImageView', avatarImageViewVersion)
+
+    junitPackage = 'junit'
+    junitVersion = '4.12'
+
+    mockitoPackage = 'org.mockito'
+    mockitoVersion = '2.16.0'
+
+    dexmakerPackage = 'com.linkedin.dexmaker'
+    dexmakerVersion = '2.16.0'
+
+    hamcrestPackage = 'org.hamcrest'
+    hamcrestVersion = '1.3'
+
+    espressoPackage = 'com.android.support.test.espresso'
+    espressoVersion = '3.0.1'
+
+    robolectricPackage = 'org.robolectric'
+    robolectricVersion = '3.4.2'
+
+    testDependencies = [
+            junit              : dependency(junitPackage, 'junit', junitVersion),
+            mockitoCore        : dependency(mockitoPackage, 'mockito-core', mockitoVersion),
+            dexmakerMokito     : dependency(dexmakerPackage, 'dexmaker-mockito', dexmakerVersion),
+            hamcrestCore       : dependency(hamcrestPackage, 'hamcrest-core', hamcrestVersion),
+            hamcrestLibrary    : dependency(hamcrestPackage, 'hamcrest-library', hamcrestVersion),
+            hamcrestIntegration: dependency(hamcrestPackage, 'hamcrest-integration', hamcrestVersion),
+            espressoIntents    : dependency(espressoPackage, 'espresso-intents', espressoVersion),
+            espressoContrib    : dependency(espressoPackage, 'espresso-contrib', espressoVersion),
+            robolectric        : dependency(robolectricPackage, 'robolectric', robolectricVersion)
+    ]
+}
+
+private static String dependency(String pack, String artifact, String version) {
+    return "${pack}:${artifact}:${version}"
+}
