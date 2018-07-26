@@ -1,5 +1,6 @@
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -15,7 +16,8 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/inputMessage"
             app:outcomingDefaultBubbleColor="@color/colorPrimary"
-            app:outcomingDefaultBubbleSelectedColor="@color/colorPrimaryDark" />
+            app:outcomingDefaultBubbleSelectedColor="@color/colorPrimaryDark"
+            tools:listitem="@layout/item_outcoming_text_message" />
 
         <include layout="@layout/view_divider" />
 
@@ -31,7 +33,9 @@
             app:attachmentButtonDefaultIconPressedColor="@color/white"
             app:inputButtonDefaultBgColor="@color/colorPrimary"
             app:inputButtonDefaultBgPressedColor="@color/colorPrimaryDark"
-            app:showAttachmentButton="true" />
+            app:inputHint="Input Message"
+            app:showAttachmentButton="true"
+            tools:inputText="Input Message" />
 
         <com.mingle.widget.LoadingView
             android:id="@+id/loading"

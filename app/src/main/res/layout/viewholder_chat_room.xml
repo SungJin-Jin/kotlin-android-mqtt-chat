@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
@@ -13,7 +14,8 @@
         android:layout_height="@dimen/dialog_avatar_height"
         android:layout_margin="16dp"
         app:aiv_ShowBoarder="false"
-        app:aiv_TextSizeRatio="0.4" />
+        app:aiv_TextSizeRatio="0.4"
+        tools:background="@drawable/ic_launcher_foreground" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/name"
@@ -22,6 +24,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="CHAT ROOM NAME" />
 
 </android.support.v7.widget.LinearLayoutCompat>

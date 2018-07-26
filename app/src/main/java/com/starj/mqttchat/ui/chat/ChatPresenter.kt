@@ -5,10 +5,9 @@ import com.starj.mqttchat.common.BaseMvpPresenter
 import com.starj.mqttchat.common.BaseMvpView
 import com.starj.mqttchat.datas.Author
 import com.starj.mqttchat.datas.Message
+import com.starj.mqttchat.extensions.onMain
 import com.starj.mqttchat.mqtt.MqttManager
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import org.eclipse.paho.client.mqttv3.MqttMessage
 
 
@@ -24,20 +23,17 @@ class ChatPresenter<MvpView : BaseMvpView> : BaseMvpPresenter<MvpView> {
     }
 
     fun connect(author: Author, topic: String) {
-        Single.create<Boolean>({
+        Single.create<Unit> {
             mqttManager = MqttManager(author, topic, actionOnSubscribed())
 
-            it.onSuccess(mqttManager.connect())
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            when (it) {
-                                true -> view.onSuccessConnect()
-                                false -> view.onErrorConnect()
-                            }
-                        },
-                        { view.onErrorConnect() }
-                )
+            when {
+                mqttManager.connect() -> it.onSuccess(Unit)
+                else -> it.onError(IllegalAccessException("Fail to connect"))
+            }
+        }.onMain().subscribe(
+                { view.onSuccessConnect() },
+                { view.onErrorConnect() }
+        )
     }
 
     override fun destroy() = mqttManager.disconnect()
@@ -48,9 +44,7 @@ class ChatPresenter<MvpView : BaseMvpView> : BaseMvpPresenter<MvpView> {
                 val message: Message = gson.fromJson(mqttMessage.toString(), Message::class.java)
 
                 it.onSuccess(message)
-            }.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(view::onReceiveMessage, Throwable::printStackTrace)
+            }.onMain().subscribe(view::onReceiveMessage, Throwable::printStackTrace)
         }
     }
 

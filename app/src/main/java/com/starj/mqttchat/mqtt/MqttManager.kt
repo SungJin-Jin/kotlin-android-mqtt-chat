@@ -24,36 +24,30 @@ class MqttManager(
         MqttClient(EndPoint.ENDPOINT_MQTT_BROKER, author.id, MemoryPersistence())
     }
 
-    tailrec fun connect(): Boolean {
-        mqttClient.connect(createConnectionOptions())
+    private val connectOptions: MqttConnectOptions by lazy {
+        MqttConnectOptions().apply {
+            isCleanSession = true
+            isAutomaticReconnect = true
+            userName = ACCOUNT_USER_NAME
+            password = ACCOUNT_PASSWORD.toCharArray()
+        }
+    }
 
+    tailrec fun connect(): Boolean {
         return if (mqttClient.isConnected) {
             subscribeOnTopic()
 
             true
         } else {
+            mqttClient.connect(connectOptions)
+
             connect()
         }
     }
 
-    fun disconnect() {
-        if (mqttClient.isConnected) mqttClient.disconnect()
-    }
+    fun disconnect() = if (mqttClient.isConnected) mqttClient.disconnect() else Unit
 
     fun publish(message: String) = mqttClient.publish(topic, message.toByteArray(), QOS_LEVEL, false)
 
-    private fun createConnectionOptions(): MqttConnectOptions {
-        return MqttConnectOptions().also {
-            it.isCleanSession = true
-            it.isAutomaticReconnect = true
-            it.userName = ACCOUNT_USER_NAME
-            it.password = ACCOUNT_PASSWORD.toCharArray()
-        }
-    }
-
-    private fun subscribeOnTopic() {
-        mqttClient.subscribe(
-                topic, QOS_LEVEL, actionOnSubscribed
-        )
-    }
+    private fun subscribeOnTopic() = mqttClient.subscribe(topic, QOS_LEVEL, actionOnSubscribed)
 }

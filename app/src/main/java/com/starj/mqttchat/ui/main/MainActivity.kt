@@ -2,7 +2,6 @@ package com.starj.mqttchat.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import com.starj.mqttchat.R
 import com.starj.mqttchat.common.BaseActivity
 import com.starj.mqttchat.datas.ChatRoom
@@ -35,7 +34,6 @@ class MainActivity : BaseActivity(), MainMvpView {
             startActivity(intent)
         }
 
-        rvChatRooms.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvChatRooms.adapter = chatRoomAdapter
 
         presenter.loadChatRooms()
