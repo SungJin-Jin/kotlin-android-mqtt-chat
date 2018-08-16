@@ -50,8 +50,10 @@ class ChatPresenter<MvpView : BaseMvpView> : RxPresenter(), BaseMvpPresenter<Mvp
     }
 
     fun sendMessage(input: CharSequence?) {
-        val message = Message(author = mqttManager.author, text = input.toString())
+        add(Single.create<String> {
+            val message = Message(author = mqttManager.author, text = input.toString())
 
-        mqttManager.publish(gson.toJson(message))
+            it.onSuccess(gson.toJson(message))
+        }.onMain().subscribe({ mqttManager.publish(it) }, {}))
     }
 }
