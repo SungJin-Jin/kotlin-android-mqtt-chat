@@ -19,8 +19,6 @@
             app:outcomingDefaultBubbleSelectedColor="@color/colorPrimaryDark"
             tools:listitem="@layout/item_outcoming_text_message" />
 
-        <include layout="@layout/view_divider" />
-
         <com.stfalcon.chatkit.messages.MessageInput
             android:id="@+id/inputMessage"
             android:layout_width="match_parent"
